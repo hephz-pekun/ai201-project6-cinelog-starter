@@ -10,3 +10,21 @@ convention used by functions such as `add_to_collection()`.
 Used `git grep save_to_watchlist` to locate all references, updated each call
 site, and confirmed the search no longer returned any matches. Ran the test
 suite afterward to verify imports and route wiring still worked.
+
+## Comment 2 — Deduplication
+
+**What I did:**
+Added a duplicate check to `add_to_watchlist()` following the same pattern used by
+`add_to_collection()` in `services/collection_service.py`.
+
+`add_to_collection()` performs a query using `user_id` and `film_id` to check
+whether an entry already exists before creating a new one. I implemented the
+same behavior for watchlist entries.
+
+If a matching watchlist entry already exists, the service now raises
+`AlreadyInWatchlistError` instead of creating a duplicate record.
+
+**How I verified:**
+Reviewed the implementation of `add_to_collection()` and confirmed the watchlist
+service follows the same flow. Ran the test suite after the change to verify no
+existing behavior was broken.
