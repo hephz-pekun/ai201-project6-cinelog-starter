@@ -8,7 +8,7 @@ from app import db
 from models import Film, WatchlistEntry
 from services.collection_service import FilmNotFoundError
 
-def add_to_watchlist(user_id, film_id):
+def add_to_watchlist(user_id, film_id, public = True):
     """
     Save a film to a user's watchlist.
 
@@ -38,7 +38,8 @@ def add_to_watchlist(user_id, film_id):
 
     entry = WatchlistEntry(
         user_id=user_id,
-        film_id=film_id
+        film_id=film_id,
+        public=public
     )
 
     db.session.add(entry)

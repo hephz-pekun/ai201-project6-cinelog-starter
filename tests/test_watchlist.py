@@ -99,4 +99,19 @@ def test_add_to_watchlist_duplicate_raises(app, sample_user, sample_film):
         ).count()
 
         assert count == 1
-        
+
+# ── Public Flag ────────────────────────────────────────────────
+
+def test_add_to_watchlist_respects_public_flag(
+    app,
+    sample_user,
+    sample_film
+):
+    with app.app_context():
+        entry = add_to_watchlist(
+            user_id=sample_user,
+            film_id=sample_film,
+            public=False
+        )
+
+        assert entry.public is False
