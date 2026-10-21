@@ -28,3 +28,22 @@ If a matching watchlist entry already exists, the service now raises
 Reviewed the implementation of `add_to_collection()` and confirmed the watchlist
 service follows the same flow. Ran the test suite after the change to verify no
 existing behavior was broken.
+
+## Comment 3 — Missing test
+
+**What I did:**
+
+Created `tests/test_watchlist.py` and added a test for the case where
+`add_to_watchlist()` receives a film ID that does not exist.
+
+I used `test_add_to_collection_nonexistent_film_raises()` from
+`tests/test_collection.py` as the model so the watchlist tests follow the same
+fixture setup, error handling pattern, and assertion style already used by the
+project.
+
+**How I verified:**
+
+Ran:
+
+```bash
+pytest tests/test_watchlist.py -v
