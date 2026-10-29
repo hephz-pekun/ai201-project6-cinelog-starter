@@ -115,3 +115,30 @@ def test_add_to_watchlist_respects_public_flag(
         )
 
         assert entry.public is False
+
+# ── Remove from Watchlist ──────────────────────────────────────
+
+def test_remove_from_watchlist_removes_entry(
+    app,
+    sample_user,
+    sample_film
+):
+    with app.app_context():
+        add_to_watchlist(
+            user_id=sample_user,
+            film_id=sample_film
+        )
+
+        result = remove_from_watchlist(
+            user_id=sample_user,
+            film_id=sample_film
+        )
+
+        assert result is True
+
+        count = WatchlistEntry.query.filter_by(
+            user_id=sample_user,
+            film_id=sample_film
+        ).count()
+
+        assert count == 0
